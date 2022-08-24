@@ -7,6 +7,7 @@ use voku\helper\HtmlDomParser;
 class HtmlParserService
 {
     const PURCHASES_BLOCK_SELECTOR = '.purchases.block';
+    const PURCHASES_BLOCK_TITLE_SELECTOR = 'h2 a';
     const PURCHASES_WRAPPER_BLOCK_SELECTOR = '.purchases-wrapper.purchases-items-wrapper .purchase-block';
     const PURCHASE_PROPERTIES_SELECTOR = '.properties .name a';
     const PURCHASE_PICTURE_SELECTOR = '.picture a img';
@@ -19,9 +20,12 @@ class HtmlParserService
         $purchasesBlocks = $html->findMulti(self::PURCHASES_BLOCK_SELECTOR);
         foreach ($purchasesBlocks as $purchasesBlock) {
             $purchaseType = new \stdClass();
-            $purchaseType->name = trim($purchasesBlock->id);
-            // Не рассматриваем блок без типа (id) покупки
-            if (!$purchaseType->name) continue;
+            $purchaseType->alias = trim($purchasesBlock->id);
+            $purchaseType->title = trim($purchasesBlock->findOne(self::PURCHASES_BLOCK_TITLE_SELECTOR)->innertext);
+            // Не рассматриваем блок без всех необходимых данных
+            foreach ($purchaseType as $field) {
+                if (empty($field)) continue;
+            }
             $purchaseType->purchases = [];
 
             $purchasesWrapperBlocks = $purchasesBlock->findMulti(self::PURCHASES_WRAPPER_BLOCK_SELECTOR);

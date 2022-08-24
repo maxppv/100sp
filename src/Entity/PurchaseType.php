@@ -16,31 +16,46 @@ class PurchaseType
      * @ORM\Id
      * @ORM\Column(type="string")
      */
-    private string $name;
+    private string $alias;
+
+    /**
+     * @var string
+     * @ORM\Column(type="string")
+     */
+    private string $title;
 
     /**
      * @var array|ArrayCollection|Collection
      * @ORM\ManyToMany(targetEntity="Purchase", cascade={"persist", "remove"})
      * @ORM\JoinTable(
      *     name="purchase_types_purchases",
-     *     joinColumns={@ORM\JoinColumn(name="purchase_type_name", referencedColumnName="name")},
+     *     joinColumns={@ORM\JoinColumn(name="purchase_type_alias", referencedColumnName="alias")},
      *     inverseJoinColumns={@ORM\JoinColumn(name="purchase_id", referencedColumnName="id")}
      * )
      */
     private array|ArrayCollection|Collection $purchases;
 
-    public function __construct(string $name)
+    public function __construct(string $alias, string $title)
     {
-        $this->name = $name;
+        $this->alias = $alias;
+        $this->title = $title;
         $this->purchases = new ArrayCollection();
     }
 
     /**
      * @return string
      */
-    public function getName(): string
+    public function getAlias(): string
     {
-        return $this->name;
+        return $this->alias;
+    }
+
+    /**
+     * @return string
+     */
+    public function getTitle(): string
+    {
+        return $this->title;
     }
 
     /**

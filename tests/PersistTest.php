@@ -23,8 +23,8 @@ class PersistTest extends KernelTestCase
 
     public function testPersist()
     {
-        $purchaseType1 = new PurchaseType('type1');
-        $purchaseType2 = new PurchaseType('type2');
+        $purchaseType1 = new PurchaseType('type1', 'Название1');
+        $purchaseType2 = new PurchaseType('type2', 'Название2');
 
         $purchase1 = new Purchase(1, 'name', 'url', 'photo');
         $purchase2 = new Purchase(2, 'name', 'url', 'photo');

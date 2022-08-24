@@ -72,8 +72,8 @@ class ImportPurchasesCommand extends Command
 
         /** @var \stdClass $purchaseTypeDTO */
         foreach ($purchaseTypes as $purchaseTypeDTO) {
-            $purchaseType = new PurchaseType($purchaseTypeDTO->name);
-            $output->writeln($purchaseTypeDTO->name);
+            $purchaseType = new PurchaseType($purchaseTypeDTO->alias, $purchaseTypeDTO->title);
+            $output->writeln($purchaseType->getTitle());
             $purchaseTypeCount++;
             /** @var \stdClass $purchaseDTO */
             foreach ($purchaseTypeDTO->purchases as $purchaseDTO) {
