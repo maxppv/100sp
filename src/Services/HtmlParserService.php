@@ -24,7 +24,7 @@ class HtmlParserService
             $purchaseType->title = trim($purchasesBlock->findOne(self::PURCHASES_BLOCK_TITLE_SELECTOR)->innertext);
             // Не рассматриваем блок без всех необходимых данных
             foreach ($purchaseType as $field) {
-                if (empty($field)) continue;
+                if (empty($field)) continue 2;
             }
             $purchaseType->purchases = [];
 
@@ -40,7 +40,7 @@ class HtmlParserService
 
                 // Не берем покупку без всех необходимых данных
                 foreach ($purchase as $field) {
-                    if (empty($field)) continue;
+                    if (empty($field)) continue 2;
                 }
 
                 $purchaseType->purchases[] = $purchase;
