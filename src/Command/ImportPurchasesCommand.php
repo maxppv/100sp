@@ -19,21 +19,13 @@ use Symfony\Component\Console\Output\OutputInterface;
 #[AsCommand(name: 'app:import:purchases')]
 class ImportPurchasesCommand extends Command
 {
-    /** @var ClientInterface */
-    private ClientInterface $httpClient;
-
-    /** @var EntityManagerInterface */
-    private EntityManagerInterface $entityManager;
-
-    /** @var HtmlParserService */
-    private HtmlParserService $htmlParserService;
-
-    public function __construct(ClientInterface $httpClient, EntityManagerInterface $entityManager, HtmlParserService $htmlParserService)
+    public function __construct(
+        private readonly ClientInterface $httpClient,
+        private readonly EntityManagerInterface $entityManager,
+        private readonly HtmlParserService $htmlParserService,
+    )
     {
         parent::__construct();
-        $this->httpClient = $httpClient;
-        $this->entityManager = $entityManager;
-        $this->htmlParserService = $htmlParserService;
     }
 
     protected function configure()
